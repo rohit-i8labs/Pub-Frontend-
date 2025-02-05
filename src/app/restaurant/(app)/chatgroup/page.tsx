@@ -14,8 +14,8 @@ function page() {
     <CardContent className="p-6">
       <div className="flex items-center mb-4 p-4 bg-gradient-to-br from-cyan-100 to-blue-100 rounded-lg">
         <Avatar className="h-16 w-16 border-4 border-white shadow-md">
-          <AvatarImage src={`/placeholder.svg?height=64&width=64`} alt="Chat Group" />
-          <AvatarFallback>CG</AvatarFallback>
+          <AvatarImage src={``} alt="Chat Group" />
+          <AvatarFallback></AvatarFallback>
         </Avatar>
         <div className="ml-4">
           <p className="text-xl font-semibold text-blue-800">Main Chat Group</p>
