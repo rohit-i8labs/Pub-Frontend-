@@ -1,5 +1,4 @@
 import axios from "axios";
-// to get the variable id of the restaurant
 const restVarId = async () => {
    try {
     const response = await fetch("https://rk4huq4sfe.execute-api.eu-north-1.amazonaws.com/restaurants/1/");
@@ -9,8 +8,24 @@ const restVarId = async () => {
     console.error(error);
    }
 };
-
-// to get the array of the users id and usernames of the particular restaurant
+const restVarIdExpiry = async () => {
+  try {
+   const response = await fetch("https://rk4huq4sfe.execute-api.eu-north-1.amazonaws.com/restaurants/1/");
+   const data = await response.json();
+   return data.var_id_expiry_time;
+  } catch (error) {
+   console.error(error);
+  }
+};
+const restDetails = async () => {
+  try {
+   const response = await fetch("https://rk4huq4sfe.execute-api.eu-north-1.amazonaws.com/restaurants/1/");
+   const data = await response.json();
+   return data;
+  } catch (error) {
+   console.error(error);
+  }
+};
 const customersIdAndUsernames = async () => {
    try {
      const response = await axios.get("https://rk4huq4sfe.execute-api.eu-north-1.amazonaws.com/restaurants/1/");
@@ -29,5 +44,7 @@ const customersIdAndUsernames = async () => {
 
 export {
     restVarId,
-    customersIdAndUsernames
+    customersIdAndUsernames,
+    restDetails,
+    restVarIdExpiry
 } 
