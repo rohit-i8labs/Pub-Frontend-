@@ -1,5 +1,5 @@
 import { z } from "zod"
-export const registerSchema = z.object({
+export const userRegisterSchema = z.object({
     username: z
       .string()
       .min(3, { message: "Username must be at least 3 characters" })
@@ -11,10 +11,8 @@ export const registerSchema = z.object({
       .min(3, { message: "Email must be at least 3 characters" })
       .max(32, { message: "Email is too long" })
     ,
-    token_valid_hours: z
-      .number()
-      .int()
-      .positive()
-      .default(1),
-  
+    password:z
+        .string()
+        .min(6, { message: "Password must be at least 6 characters" })
+        .max(32, { message: "Password is too long" })
   })
