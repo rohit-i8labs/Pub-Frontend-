@@ -13,15 +13,15 @@ import {
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { registerSchema } from '@/schemas/registerSchema'
+import { customerRegisterSchema } from '@/schemas/customerRegisterSchema'
 import { useAuth } from '@/context/(user)/CustomerAuthProvider'
 
 
 
 export default function Register() {
   const {register}=useAuth()
-  const form = useForm<z.infer<typeof registerSchema>>({
-    resolver: zodResolver(registerSchema),
+  const form = useForm<z.infer<typeof customerRegisterSchema>>({
+    resolver: zodResolver(customerRegisterSchema),
     defaultValues: {
       username: "",
       email: "",
