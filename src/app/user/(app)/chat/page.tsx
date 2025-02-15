@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Send, Sparkles } from 'lucide-react'
 import { useAuth } from '@/context/(user)/CustomerAuthProvider'
 import { MessageInterface } from '@/interfaces/Messsage'
-import { useSocket } from '@/context/(user)/SocketContext'
+import { useSocket } from '@/context/SocketContext'
 import { createGroupSocket } from '@/_ApiCall/socket'
 import { getGroupMessages } from '@/_ApiCall/chat'
 

@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button"
 import { Send } from 'lucide-react'
 import { useAuth } from '@/context/(user)/CustomerAuthProvider'
 import { MessageInterface } from '@/interfaces/Messsage'
-import { useSocket } from '@/context/(user)/SocketContext'
-import { useChat } from '@/context/(user)/ChatProvider'
+import { useSocket } from '@/context/SocketContext'
+import { useChat } from '@/context/ChatProvider'
 import { fetchChatId, chatHistory } from '@/_ApiCall/chat'
 import { createPrivateSocket } from '@/_ApiCall/socket'
 

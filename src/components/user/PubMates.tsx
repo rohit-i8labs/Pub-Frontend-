@@ -7,7 +7,7 @@ import { Search, MessageSquare } from 'lucide-react'
 import { customersIdAndUsernames } from "@/_ApiCall/restaurant"
 import { UserInterface } from '@/interfaces/User'
 import { useAuth } from '@/context/(user)/CustomerAuthProvider'
-import { useChat } from '@/context/(user)/ChatProvider'
+import { useChat } from '@/context/ChatProvider'
 
 export default function PubMates() {
   const { username } = useAuth()
