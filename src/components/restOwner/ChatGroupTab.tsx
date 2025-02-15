@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 
-function page() {
+export default function ChatGroupTab() {
   return (
     <Card className="col-span-4 bg-white shadow-lg rounded-lg overflow-hidden">
     <CardHeader className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white">
@@ -29,4 +29,3 @@ function page() {
   )
 }
 
-export default page

@@ -1,16 +1,17 @@
 'use client'
-import React, {  useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { OverviewTab } from '@/components/admin/OverviewTab'
-import { PubsTab } from '@/components/admin/PubsTab'
-import { UsersTab } from '@/components/admin/UsersTab'
-import { RevenueTab } from '@/components/admin/RevenueTab'
-import { ActivityTab } from '@/components/admin/ActivityTab'
+import {
+  OverviewTab,
+  PubsTab,
+  UsersTab,
+  RevenueTab,
+  ActivityTab,
+  RegisterPubTab,
+} from '@/components/admin/index'
 export default function PubChatPlatformOwnerDashboard() {
   const [activeTab, setActiveTab] = useState('overview')
-useEffect(() => {
 
-})
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6">PubChat Platform Owner Dashboard</h1>
@@ -39,7 +40,7 @@ useEffect(() => {
           <ActivityTab />
         </TabsContent>
         <TabsContent value="registerPub">
-          {/* <Register /> */}
+          <RegisterPubTab />
         </TabsContent>
       </Tabs>
     </div>

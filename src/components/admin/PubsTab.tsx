@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { topPubs } from '../mockData'
 
-export function PubsTab() {
+export default function PubsTab() {
   return (
     <Card>
       <CardHeader>

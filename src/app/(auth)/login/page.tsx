@@ -35,14 +35,14 @@ export default function Login() {
     try {
       const getToken = await axios.post("https://rk4huq4sfe.execute-api.eu-north-1.amazonaws.com/api/token/", data)
       if (getToken) {
-        const res = await axios.get("https://rk4huq4sfe.execute-api.eu-north-1.amazonaws.com/users/", {
+        const res = await axios.get(`https://rk4huq4sfe.execute-api.eu-north-1.amazonaws.com/users/?username=${data.username} `, {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${getToken.data.access}`
           }
         })
-        console.log(res)
         toast.toast({
+          variant: "default",
           title: "Success",
           description: "You have successfully logged in",
         })

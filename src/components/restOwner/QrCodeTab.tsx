@@ -7,7 +7,7 @@ import { RefreshCw } from "lucide-react"
 import { restDetails } from '@/_ApiCall/restaurant'
 import Timer from '@/components/restOwner/Timer'
 import { QRCodeSVG } from 'qrcode.react';
-export default function qrCode() {
+export default function QrCodeTab() {
   const [restaurantName, setRestaurantName] = useState('Restaurant Name')
   const [logo, setLogo] = useState('')
   const [qrCodeNumber, setQrCodeNumber] = useState('')

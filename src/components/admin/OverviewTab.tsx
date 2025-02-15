@@ -4,7 +4,7 @@ import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, R
 import { Building, Users, DollarSign, MessageSquare } from 'lucide-react'
 import { platformOverview, revenueData, userGrowthData } from '../mockData'
 
-export function OverviewTab() {
+export default function OverviewTab() {
   return (
     <>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

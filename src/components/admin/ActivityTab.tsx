@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { recentActivities } from '../mockData'
 
-export function ActivityTab() {
+export default function ActivityTab() {
   return (
     <Card>
       <CardHeader>

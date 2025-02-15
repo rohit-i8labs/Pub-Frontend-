@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { userGrowthData } from '../mockData'
 
-export function UsersTab() {
+export default function UsersTab() {
   return (
     <Card>
       <CardHeader>

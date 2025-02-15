@@ -15,8 +15,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { userRegisterSchema } from "@/schemas/userRegisterSchema";
 import Link from "next/link";
+import axios from "axios";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
+  const router = useRouter();
+  const toast = useToast();
   const form = useForm<z.infer<typeof userRegisterSchema>>({
     resolver: zodResolver(userRegisterSchema),
     defaultValues: {
@@ -26,7 +31,23 @@ export default function Register() {
     },
   });
   const handleRegister = async (data: z.infer<typeof userRegisterSchema>) => {
-    // form.reset();
+    try {
+      await axios.post(
+        "https://rk4huq4sfe.execute-api.eu-north-1.amazonaws.com/users/",
+        data
+      );
+      toast.toast({
+        variant: "default",
+        description: "You have successfully registered. Please login",
+      });
+      router.push("/login");
+    } catch (error) {
+      toast.toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Something went wrong",
+      });
+    }
   };
 
   return (
@@ -34,7 +55,7 @@ export default function Register() {
       <div className="w-full max-w-md max-h-lg bg-white rounded-lg shadow-xl overflow-hidden p-6 ">
         <div className="space-y-4">
           <h2 className="text-3xl font-bold text-center text-indigo-800 mb-6">
-            Join The Tipsy Tavern
+            Join the Pub Network
           </h2>
           <Form {...form}>
             <form
@@ -75,7 +96,7 @@ export default function Register() {
                     <FormLabel>Password</FormLabel>
                     <FormControl>
                       <Input
-                        disabled
+                        type="password"
                         placeholder="Enter your password"
                         {...field}
                       />

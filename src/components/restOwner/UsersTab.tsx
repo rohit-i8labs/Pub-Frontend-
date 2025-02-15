@@ -7,7 +7,7 @@ import { customersIdAndUsernames } from "@/_ApiCall/restaurant"
 import { UserInterface } from '@/interfaces/User'
 
 
-export default function Users() {
+export default function UsersTab() {
   const [selectedUser, setSelectedUser] = useState<UserInterface[]>([])
 
   useEffect(() => {

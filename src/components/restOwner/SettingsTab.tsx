@@ -9,7 +9,7 @@ import { Switch } from "@/components/ui/switch"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { AlertCircle } from 'lucide-react'
-function Setting() {
+export default function SettingsTab() {
     const [restaurantName, setRestaurantName] = useState('The Tipsy Tavern')
     const [restaurantDescription, setRestaurantDescription] = useState('')
     const [qrCodeGenerationFrequency, setQrCodeGenerationFrequency] = useState('daily')
@@ -152,4 +152,3 @@ function Setting() {
     )
 }
 
-export default Setting

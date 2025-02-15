@@ -1,12 +1,11 @@
 "use client"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Clock, MessageSquare, QrCode, Users } from "lucide-react"
-import Analytics from "../analytics/page"
-import ChatGroup from "../chatgroup/page"
+import {AnalyticsTab,ChatGroupTab} from "./index"
 import {useEffect, useState } from "react"
 import {restDetails} from "@/_ApiCall/restaurant"
 
-export default function Dashboard() {
+export default function DashboardTab() {
   const [totalCustomers, setTotalCustomers] = useState(0)
   const [averageStayTime, setAverageStayTime] = useState(0)
   const [totalGroupMessages, setTotalGroupMessages] = useState(0)
@@ -67,8 +66,6 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       </div>
-      <Analytics />
-      <ChatGroup />
     </>
   )
 }

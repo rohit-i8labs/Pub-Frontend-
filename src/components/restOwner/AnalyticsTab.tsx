@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, CardContent,CardHeader, CardTitle } from "@/components/ui/card"
 import { BarChart2 } from 'lucide-react'
 
-function page() {
+export default function AnalyticsTab () {
   return (
     <Card className="col-span-4 bg-white shadow-lg rounded-lg overflow-hidden">
       <CardHeader className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
@@ -19,4 +19,4 @@ function page() {
   )
 }
 
-export default page
+

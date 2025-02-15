@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { revenueData, platformOverview } from '../mockData'
 
-export function RevenueTab() {
+export default function RevenueTab() {
   return (
     <Card>
       <CardHeader>
