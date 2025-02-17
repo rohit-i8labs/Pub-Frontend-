@@ -16,8 +16,6 @@ import { useForm } from "react-hook-form"
 import { customerRegisterSchema } from '@/schemas/customerRegisterSchema'
 
 
-
-
 export default function Register() {
   const form = useForm<z.infer<typeof customerRegisterSchema>>({
     resolver: zodResolver(customerRegisterSchema),

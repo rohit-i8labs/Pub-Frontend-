@@ -4,7 +4,10 @@ import { useRouter } from 'next/navigation'
 
 function page() {
     const router = useRouter()
-    useEffect(() => {
+  useEffect(() => {
+        localStorage.removeItem('token')
+        localStorage.removeItem('username')
+        
         router.push('/login')
     }, [])
   return (
