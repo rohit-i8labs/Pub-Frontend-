@@ -70,9 +70,9 @@ export default function RegisterPubTab() {
   return (
       <div className='flex justify-center'>
         <Card className="w-full max-w-2xl bg-white shadow-xl rounded-xl overflow-hidden">
-        <CardHeader className="rounded-lg  bg-violet-500 text-white m-4 ">
+        <CardHeader className="rounded-lg shadow m-4 ">
           <CardTitle>Restaurant Details</CardTitle>
-          <CardDescription className='text-white' >Create a new restaurant</CardDescription>
+          <CardDescription >Create a new restaurant</CardDescription>
         </CardHeader>
         <CardContent className="px-6">
           <Form {...form}>
@@ -124,7 +124,8 @@ export default function RegisterPubTab() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full bg-violet-500 text-white ">
+              <Button type="submit" className="w-full"
+              >
                 Register Restaurant
               </Button>
             </form>
