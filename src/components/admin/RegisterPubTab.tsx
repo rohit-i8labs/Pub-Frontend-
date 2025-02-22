@@ -29,10 +29,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { useToast } from '@/hooks/use-toast'
 import { PubRegisterSchema } from '@/schemas/PubRegisterSchema'
-import { getUserList } from '@/_ApiCall/user'
 import { UserInterface } from '@/interfaces/User'
-import { on } from 'events'
-import axios from 'axios'
+import api from '@/lib/axios'
 
 export default function RegisterPubTab() {
   const toast = useToast()
@@ -42,12 +40,13 @@ export default function RegisterPubTab() {
     defaultValues: {
       name: "",
       description: "",
-      owner_username: "",
+      owner: "",
     },
   })
   const userList = async () => {
-    const response = await getUserList()
-    setUsers(response)
+    const response = await api.get("/users/")
+    const users = response.data
+    setUsers(users.filter((user: any) => (user.is_superuser === false)))
   }
   useEffect(() => {
     userList()
@@ -55,13 +54,7 @@ export default function RegisterPubTab() {
 
   const onSubmit = async (data: z.infer<typeof PubRegisterSchema>) => {
     try {
-      console.log(data);
-      const response = await axios.post("https://rk4huq4sfe.execute-api.eu-north-1.amazonaws.com/restaurants/", data, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('token')
-        }
-      });
+      await api.post("/restaurants/", data)
 
       toast.toast({
         variant: "default",
@@ -75,69 +68,71 @@ export default function RegisterPubTab() {
     }
   }
   return (
-    <Card className="col-span-4 bg-white shadow-lg rounded-lg overflow-hidden  mt-8">
-      <CardHeader className="rounded-lg  bg-violet-500 text-white m-6 ">
-        <CardTitle>Restaurant Details</CardTitle>
-        <CardDescription className='text-white' >Create a new restaurant</CardDescription>
-      </CardHeader>
-      <CardContent className="px-6">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4" >
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter the name for the restaurant" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter the description for the restaurant" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="owner_username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Owner</FormLabel>
-                  <Select  onValueChange={field.onChange} defaultValue={field.value}>
+      <div className='flex justify-center'>
+        <Card className="w-full max-w-2xl bg-white shadow-xl rounded-xl overflow-hidden">
+        <CardHeader className="rounded-lg  bg-violet-500 text-white m-4 ">
+          <CardTitle>Restaurant Details</CardTitle>
+          <CardDescription className='text-white' >Create a new restaurant</CardDescription>
+        </CardHeader>
+        <CardContent className="px-6">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4" >
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select an owner" />
-                      </SelectTrigger>
+                      <Input placeholder="Enter the name for the restaurant" {...field} />
                     </FormControl>
-                    <SelectContent>
-                      {users.map((user) => (
-                        <SelectItem key={user.id} value={user.username}>{user.username}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </FormItem>
-              )}
-            />
-            <Button type="submit" className="w-full bg-violet-500 text-white ">
-              Register Restaurant
-            </Button>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Description</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter the description for the restaurant" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="owner"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Owner</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select an owner" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {users.map((user) => (
+                          <SelectItem key={user.id} value={user.username}>{user.username}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" className="w-full bg-violet-500 text-white ">
+                Register Restaurant
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
 
+      </div>
 
   )
 }

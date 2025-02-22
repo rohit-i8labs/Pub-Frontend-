@@ -1,10 +1,69 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { Building, Users, DollarSign, MessageSquare } from 'lucide-react'
-import { platformOverview, revenueData, userGrowthData } from '../mockData'
-
+import api from '@/lib/axios'
+interface PlatformOverview {
+  totalPubs: number
+  totalUsers: number
+  totalRevenue: number
+  activeChats: number
+}
 export default function OverviewTab() {
+  const [platformOverview, setPlatformOverview] = useState<PlatformOverview>({
+    totalPubs: 0,
+    totalUsers: 0,
+    totalRevenue: 0,
+    activeChats: 0,
+  })
+  const [revenueData, setRevenueData] = useState<{ month: string; revenue: number }[]>([
+    { month: 'Jan', revenue: 0 },
+    { month: 'Feb', revenue: 0 },
+    { month: 'Mar', revenue: 0 },
+    { month: 'Apr', revenue: 0 },
+    { month: 'May', revenue: 0 },
+    { month: 'Jun', revenue: 0 },
+  ])
+  const [userGrowthData, setUserGrowthData] = useState<{ month: string; users: number }[]>([
+    { month: 'Jan', users: 0 },
+    { month: 'Feb', users: 0 },
+    { month: 'Mar', users: 0 },
+    { month: 'Apr', users: 0 },
+    { month: 'May', users: 0 },
+    { month: 'Jun', users: 0 },
+  ])
+
+
+
+  const getData = async () => {
+    const response = await api.get('/superuser/')
+    const data = response.data
+    setPlatformOverview({
+      totalPubs: data.restaurants.total_count || 0,
+      totalUsers: data.customers.total_count || 0,
+      totalRevenue: data.restaurants.total_revenue || 0,
+      activeChats: data.private_chatrooms.total_count || 0
+    })
+    const revenueData = data.restaurants.monthly_counts
+    if (revenueData.length>0) {
+      setRevenueData(revenueData.map((item: any) => ({
+        month: item.month,
+        revenue: item.total_revenue
+      })))
+    }
+    const usersData = data.customers.monthly_counts
+    if (usersData.length>0) {
+      setUserGrowthData(usersData.map((item: any) => ({
+        month: item.month,
+        users: item.count
+      })))
+    }
+  }
+  useEffect(() => {
+    getData()
+  }, [])
+
+
   return (
     <>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -15,7 +74,7 @@ export default function OverviewTab() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{platformOverview.totalPubs}</div>
-            <p className="text-xs text-muted-foreground">+3 from last month</p>
+            {/* <p className="text-xs text-muted-foreground">+3 from last month</p> */}
           </CardContent>
         </Card>
         <Card>
@@ -25,7 +84,7 @@ export default function OverviewTab() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{platformOverview.totalUsers}</div>
-            <p className="text-xs text-muted-foreground">+12% from last month</p>
+            {/* <p className="text-xs text-muted-foreground">+12% from last month</p> */}
           </CardContent>
         </Card>
         <Card>
@@ -35,7 +94,7 @@ export default function OverviewTab() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">${platformOverview.totalRevenue}</div>
-            <p className="text-xs text-muted-foreground">+18% from last month</p>
+            {/* <p className="text-xs text-muted-foreground">+18% from last month</p> */}
           </CardContent>
         </Card>
         <Card>
@@ -45,7 +104,7 @@ export default function OverviewTab() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{platformOverview.activeChats}</div>
-            <p className="text-xs text-muted-foreground">+8% from last week</p>
+            {/* <p className="text-xs text-muted-foreground">+8% from last week</p> */}
           </CardContent>
         </Card>
       </div>

@@ -1,9 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
-import { userGrowthData } from '../mockData'
+import api from '@/lib/axios';
 
 export default function UsersTab() {
+    const [userGrowthData, setUserGrowthData] = useState<{ month: string; users: number }[]>([
+      { month: 'Jan', users: 0 },
+      { month: 'Feb', users: 0 },
+      { month: 'Mar', users: 0 },
+      { month: 'Apr', users: 0 },
+      { month: 'May', users: 0 },
+      { month: 'Jun', users: 0 },
+    ])
+
+    const getData = async () => {
+      const response = await api.get('/superuser/')
+      const data = response.data
+      const usersData = data.customers.monthly_counts
+      if (usersData.length>0) {
+        setUserGrowthData(usersData.map((item: any) => ({
+          month: item.month,
+          users: item.count
+        })))
+      }
+    }
+    useEffect(() => {
+      getData()
+    }, [])
   return (
     <Card>
       <CardHeader>
@@ -22,7 +45,7 @@ export default function UsersTab() {
             </LineChart>
           </ResponsiveContainer>
         </div>
-        <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {/* <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <div className="flex flex-col space-y-1.5">
             <span className="text-sm font-medium">New Users (This Month)</span>
             <span className="text-2xl font-bold">+3,678</span>
@@ -39,7 +62,7 @@ export default function UsersTab() {
             <span className="text-sm font-medium">User Retention Rate</span>
             <span className="text-2xl font-bold">76%</span>
           </div>
-        </div>
+        </div> */}
       </CardContent>
     </Card>
   )
