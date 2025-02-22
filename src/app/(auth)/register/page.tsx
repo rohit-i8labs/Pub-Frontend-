@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -15,11 +15,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { userRegisterSchema } from "@/schemas/userRegisterSchema";
 import Link from "next/link";
-import axios from "axios";
+import api from "@/lib/axios";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 
 export default function Register() {
+   const [loading, setLoading] = useState(false)
   const router = useRouter();
   const toast = useToast();
   const form = useForm<z.infer<typeof userRegisterSchema>>({
@@ -31,11 +32,9 @@ export default function Register() {
     },
   });
   const handleRegister = async (data: z.infer<typeof userRegisterSchema>) => {
+    setLoading(true)
     try {
-      await axios.post(
-        "https://rk4huq4sfe.execute-api.eu-north-1.amazonaws.com/users/",
-        data
-      );
+      await api.post("/users/",data);
       toast.toast({
         variant: "default",
         description: "You have successfully registered. Please login",
@@ -47,6 +46,8 @@ export default function Register() {
         title: "Error",
         description: "Something went wrong",
       });
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -108,8 +109,9 @@ export default function Register() {
               <Button
                 type="submit"
                 className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white hover:from-purple-600 hover:to-indigo-600 transition-all duration-300"
+                disabled={loading}
               >
-                Register
+               {loading ? 'Registering...' : 'Register'}
               </Button>
             </form>
           </Form>
