@@ -9,7 +9,7 @@ export const PubRegisterSchema = z.object({
         .string()
         .min(10, { message: "Description must be at least 10 characters" })
         .max(60, { message: "Description is too long" }),
-    owner_username: z
+    owner: z
         .string()
         .min(1, { message: "Username must be at least 1 characters" })
         .max(32, { message: "Username is too long" }),
